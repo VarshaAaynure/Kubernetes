@@ -1,0 +1,26 @@
+#Deployment
+kubectl create deployment my-deployment --image=nginx:alpine --replicas=3
+kubectl get deploy
+
+# Namespace
+kubectl create namespace test-123 --dry-run -o yaml
+kubectl get namespaces --no-headers | wc -l
+
+#Pods
+#cmd to create pod
+k run pod_name --image=image_name -n namspce
+kubeclt get pods --all-namespaces | grep blue
+kubectl get pods --namespce=kube-system
+
+# Manifest file to create Namespace
+$ namespace-dev.yaml
+apiVersion: v1
+kind: Namespce
+metadata: 
+  name: dev
+
+$kubectl create -f namespace-dev.yaml
+#or
+kubectl create namespce dev
+
+# swtich namespace
