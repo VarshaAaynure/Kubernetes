@@ -4,3 +4,4 @@ kubectl exec -it pod-name pwd  #cmd run your pod
 kubectl exec pod-name -- $cmd_that_we_want_to_run #e.g whoami
 kubectl get pod webapp-color -o yaml > pod.yaml # to save yaml file of existing pod
 kubectl run pod-name --image=nginx --dry-run=client -o yaml  #command to generate pod yaml file
+k exec ubuntu-sleeper -- whoami
