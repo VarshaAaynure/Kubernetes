@@ -1,0 +1,5 @@
+kubectl get configmap
+#or 
+kubectl get cm
+kubectl describe cm cm_name
+kubectl create cm webapp-config-map --from-literal=APP_COLOR=darkblue
