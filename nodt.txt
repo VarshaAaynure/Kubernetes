@@ -1,0 +1,5 @@
+kubectl get nodes
+
+# command to Label nodes
+syntax > kubectl label nodes <node-name> <label-key>=<label-value>
+example > kubectl label ndoes node-1 size=Large 
