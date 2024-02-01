@@ -1,0 +1,3 @@
+# deployment
+kubectl get deploy
+kubectl get deployment
