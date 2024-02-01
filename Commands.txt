@@ -1,3 +1,10 @@
+#k8s
+Imperative way 
+kubectl create configmap
+
+Declatative way
+kubectl create -f 
+
 #Deployment
 kubectl create deployment my-deployment --image=nginx:alpine --replicas=3
 kubectl get deploy
