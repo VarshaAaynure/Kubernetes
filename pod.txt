@@ -1,0 +1,6 @@
+kubectl get pods 
+kubectl describe pod pod-name
+# cmd run your pod
+kubectl exec -it pod-name pwd
+kubectl exec pod-name -- $cmd_that_we_want_to_run
+#e.g whoami
