@@ -1,0 +1,25 @@
+# syntax to taint node 
+k taint node node-name key=value:taint-effect
+>> there are 3 taint-effect
+a. NoSchedule
+b. PreferNoSchedule
+c. NoExecute
+
+e.g 
+k taint nodes node1 app:blue:NoSchedule
+
+#Tolerations - pods
+>> pod-definition.yaml
+apiVerison: v1
+kind: Pod
+metadata: 
+  name: myapp-pod
+spec:
+  containers:
+    - name: nginx-container
+       image: nginx
+  tolerations:
+    - key: "app"
+      operator: "Equal"
+      value: "blue"
+      effect: NoSchedule
