@@ -1,0 +1,39 @@
+# mypvc.yaml
+apiVerison: v1
+kind: PersistentVolumeClaim
+metadata:
+	name: mypvc
+spec:
+	accessModes: 
+		- ReadWriteOnce
+	resources:
+		requests:
+			storage: 100Mi
+	storageClassName: managed-csi
+	
+#pod-pvc.yaml
+apiVersion: v1
+kind: Pod
+metadata: 
+	name: mypvpod
+	labels:
+		run: mypvpod
+spec:
+	containers:
+		- image: busybox
+		  name: mypvpod
+		  command: ["sh","-c", "echo 'CKAD' > /data/file.txt && sleep 300"]
+		  volumeMounts: 
+			- name: myvolume
+			  mountPath: "/data"
+	restartPolicy: OnFailure
+	volumes: 
+		- name: myvolume
+		  persistentVolumeClaim:
+			claimName: mypvc
+			
+# kubectl create -f pod-pvc.yaml			
+# kubectl get pods
+# kubectl exec mypvpod -- cat /data.txt
+
+# Ephemeral Volumes provides temp storage for pods, it will get removed once the pod is deleted
