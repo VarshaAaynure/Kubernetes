@@ -1,3 +1,26 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: myapp-deployment
+	labels:
+		app: my-app
+		type: front-end
+spec:
+	template:
+		metadata:
+			name: myapp-pod
+			labels: 
+				app: my-app
+		spec:
+			containers:
+			 - name: nginx-container
+			   image: nginx:latest
+	replicas: 6
+	selector:
+		matchLabels: 
+			app: myapp
+
 #create 
 > kubectl cretae -f deployment-definition.yaml
 > kubectl create deployment nginx --image=nginx:1.16
