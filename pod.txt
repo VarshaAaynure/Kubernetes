@@ -16,3 +16,12 @@ kubectl exec pod-name -- $cmd_that_we_want_to_run #e.g whoami
 kubectl get pod webapp-color -o yaml > pod.yaml # to save yaml file of existing pod
 kubectl run pod-name --image=nginx --dry-run=client -o yaml  #command to generate pod yaml file
 kubectl exec ubuntu-sleeper -- whoami
+
+# pod
+kubectl edit pod my-pod -n my-namespace
+kubectl replace -f elephant.yaml --force
+kubectl replace -f pod.yaml --force
+kubectl apply -f pod.yaml --force
+
+kubectl -n my-namespace logs my-pod
+kubectl exec -it my-pod -n my-namespace -- cat /log/app.log
