@@ -23,3 +23,11 @@ spec:
       operator: "Equal"
       value: "blue"
       effect: NoSchedule
+
+
+#Label
+kubectl label node node01 color=blue
+
+#Taints 
+ kubectl describe node node01 | grep -i taints
+ kubectl taint nodes node01 spray=mortein:NoSchedule
