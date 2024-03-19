@@ -1,3 +1,6 @@
+# create pods using for loop 
+for i in `seq 1 5`; do k run nginx$i --image=nginx -l app=v1 ; done
+
 # manifest file for pod
 apiVersion: v1
 kind: Pod
@@ -14,8 +17,28 @@ kubectl describe pod pod-name
 kubectl exec -it pod-name -- pwd  #cmd run your pod
 kubectl exec pod-name -- $cmd_that_we_want_to_run #e.g whoami
 kubectl get pod webapp-color -o yaml > pod.yaml # to save yaml file of existing pod
+
 kubectl run pod-name --image=nginx --dry-run=client -o yaml  #command to generate pod yaml file
 kubectl exec ubuntu-sleeper -- whoami
+
+#pod labels
+k get po --show-labels -l app=v3
+k get po --show-labels --selector=app=v2
+k label po -l "app in (v2,v3)" tier=web
+k label po -l "tier in (web)" evn=prod
+k get po --show-labels
+k describe po nginx2 | grep -i "labels"
+
+# pod annotations
+k annotate po -l app=v2 owner=marketing
+k annotate po nginx{1..3} description='my description'
+k annotate po nginx4 nginx4 description='my description'
+k describe po nginx3 | grep -i 'annotations'
+
+# pod commands to remove labels
+k label po nginx1 nginx2 app-
+k label po nginx{1..4} app-
+k label po -l app app-
 
 # pod
 kubectl edit pod my-pod -n my-namespace
