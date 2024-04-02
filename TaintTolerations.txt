@@ -31,3 +31,108 @@ kubectl label node node01 color=blue
 #Taints 
  kubectl describe node node01 | grep -i taints
  kubectl taint nodes node01 spray=mortein:NoSchedule
+
+
+
+	
+# cmd to view default enabled admission Controllers
+kube-apiserver -h | grep enable-admission-plugins
+
+# tain-tolerations syntax
+kubectl taint node node-name key=vlaue:taint-effect
+
+#here type of taint-effect
+NoSchedule
+PreferNoSchedule
+NoExecute
+
+# example to apply taint on node
+kubectl taint nodes node1 app=blue:NoSchedule
+
+# example to remove tainet on node
+kubectl taint node node1 blue:NoSchedule-
+
+# pod-with-tai n-tolerations.yaml
+apiVersion: v1
+kind: Pod
+metadata: 
+	name: myapp-pod
+spec:
+	containers:
+		- name: nginx-container
+		  image: nginx
+	tolerations:
+		- key: "app"
+		  operator: "Equal"
+		  value: "blue"
+		  effect: "NoSchedule"
+		  
+# on master node bydefault NoSchedule taint will be get applied
+$ kubectl describe node kubemaster | grep taint
+
+# node selector 
+
+first label your node
+kubectl label nodes node-name label-key=label-value
+example
+kubectl label nodes node-1 size=Large
+
+# pod-definition-node-selector.yaml
+
+apiVerison: v1
+kind: Pod
+metadata:
+	name: myapp-pod
+spec:
+	containers:
+		- name: data-processor
+		  image: data-processor
+	nodeSelector:
+		size: Large
+
+# with NodeSelector we cannot provide 
+- Large or Medium 
+- NOT small 
+so we have to use node affinity
+
+# Node affinity
+Types of node Affinity
+- Available
+requiredDuringSchedulingIgnoredDuringExecution
+preferredDuringSchedulingIgnoredDuringExecution
+
+- Planned 
+RequiredDuringSchedulingRequiredDuringExecution
+
+
+kubect create deployment blue --image=nginx --replicas=3
+kubectl describe node node1 | grep taints
+
+./script-name.sh
+sh script-name.sh
+bash script-name.sh
+
+
+# replicaset-definition.yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+	name: simple-webapp
+	labels: 
+		app: App1
+		function: Front-end
+spec:
+	replicas: 3
+	selector:
+		matchLabels:
+			app: App1
+	template:
+		metadata:
+			labels: 
+				app: App1
+			function: Front-end
+		spec: 
+			containers: 
+				- name: simple-webapp
+				  image: simple-webapp
+		
