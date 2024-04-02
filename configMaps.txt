@@ -3,3 +3,31 @@ kubectl get configmap
 kubectl get cm
 kubectl describe cm cm_name
 kubectl create cm webapp-config-map --from-literal=APP_COLOR=darkblue
+
+# Create ConfigMap and add it inside Pods 
+
+# config-map.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  APP_COLOR: blue
+  APP_MODE: prod
+  
+#pod-definition.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+	name: simple-webapp-color
+	labels:
+		name: simple-webapp-color
+spec:
+	containers:
+	  - name: simple-webapp-color
+	    image: simple-webapp-color
+		ports:
+		  - containerPort: 8080
+		envFrom:
+		  - configMapRef:
+		      name: app-config
