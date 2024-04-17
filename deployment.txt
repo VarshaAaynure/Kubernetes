@@ -27,6 +27,7 @@ spec:
 
 #get 
 > kubectl get deployments
+kubectl describe deploy simple-webapp-deployment | grep -i image
 
 #update
 > kubectl apply -f deployment-definition.yaml
